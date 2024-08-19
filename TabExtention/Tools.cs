@@ -1,4 +1,5 @@
 ﻿using CoreRuntime.Manager;
+using HexedTools.HookUtils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,21 +23,21 @@ namespace TabExtention
             string filePath;
             if (!File.Exists(filePath = Path.Combine(Entry.CurrentDirectory.FullName, "Runtime", "NotHarmony.dll")))
             {
-                Console.WriteLine("Downloading NotHarmony...");
+                Logs.WriteOutLine("Downloading NotHarmony...");
                 File.WriteAllBytes(filePath, net.DownloadData("https://github.com/Cyconi/EXO-Resources/raw/main/NotHarmony.dll"));
-                Console.WriteLine("NotHarmony Downloaded!");
+                Logs.WriteOutLine("NotHarmony Downloaded!");
             }
             if (!File.Exists(filePath = Path.Combine(Entry.CurrentDirectory.FullName, "Runtime", "WorldAPI.dll")))
             {
-                Console.WriteLine("Downloading WorldAPI...");
+                Logs.WriteOutLine("Downloading WorldAPI...");
                 File.WriteAllBytes(filePath, net.DownloadData("https://github.com/Cyconi/EXO-Resources/raw/main/WorldAPI.dll"));
-                Console.WriteLine("WorldAPI Downloaded!");
+                Logs.WriteOutLine("WorldAPI Downloaded!");
             }
             if (!File.Exists(filePath = Path.Combine(Entry.CurrentDirectory.FullName, "Runtime", "ConsoleTool.dll")))
             {
-                Console.WriteLine("[Hexed Logs] Downloading ConsoleTool...");
+                Logs.WriteOutLine("Downloading ConsoleTool...");
                 File.WriteAllBytes(filePath, net.DownloadData("https://github.com/Cyconi/EXO-Resources/raw/main/ConsoleTool.dll"));
-                Console.WriteLine("[Hexed Logs] ConsoleTool Downloaded!");
+                Logs.WriteOutLine("ConsoleTool Downloaded!");
             }
         }
 
@@ -62,7 +63,7 @@ namespace TabExtention
                 }
 
             if (_sprite != null)
-                Console.WriteLine("Found sprite: " + _sprite.name);
+                Logs.WriteOutLine("Found sprite: " + _sprite.name);
             else throw new NullReferenceException("Unable to find the Page_Tab_Backdrop sprite.");
             return _sprite;
         }

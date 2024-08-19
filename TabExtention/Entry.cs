@@ -1,6 +1,9 @@
 ﻿using CoreRuntime.Interfaces;
 using CoreRuntime.Manager;
+using System.Collections;
+using UnityEngine;
 using VRC;
+using WorldAPI;
 
 namespace TabExtention
 {
@@ -15,9 +18,16 @@ namespace TabExtention
             MonoManager.PatchOnApplicationQuit(typeof(VRCApplicationSetup).GetMethod(nameof(VRCApplicationSetup.OnApplicationQuit))); 
 
             QMPatch.LoadPatch();
-            TabExtender.OnLoad();
+            CoroutineManager.RunCoroutine(WaitForMenu());
         }
+        static IEnumerator WaitForMenu()
+        {
+            for (; GameObject.Find("Canvas_QuickMenu(Clone)") == null;)
+                yield return new WaitForFixedUpdate();
 
+            TabExtender.OnMenuBuilt();
+            yield break;
+        }
         public override void OnApplicationQuit()
         {
             // Function is hooked, so its getting called in our callback
@@ -26,21 +36,6 @@ namespace TabExtention
         public override void OnUpdate()
         {
             // Methods that need to run every frame, added a simple hotkey zoom module
-        }
-
-        public override void OnFixedUpdate()
-        {
-            // Function is not hooked, won't get called
-        }
-
-        public override void OnLateUpdate()
-        {
-            // Function is not hooked, won't get called
-        }
-
-        public override void OnGUI()
-        {
-            // Function is not hooked, won't get called
         }
     }
 }

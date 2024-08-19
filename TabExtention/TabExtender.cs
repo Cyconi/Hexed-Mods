@@ -9,13 +9,14 @@ using UnityEngine.UI;
 using UnityEngine;
 using WorldAPI;
 using System.Collections;
+using HexedTools.HookUtils;
 
 namespace TabExtention
 {
     internal class TabExtender
     {
         internal static Transform quickMenu, layout, background, pageButtonsQM;
-        internal static void OnLoad()
+        internal static void OnMenuBuilt()
         {
             QMPatch.OnQuickMenuOpen += RecalculateLayout;
             QMPatch.OnQuickMenuClose += RecalculateLayout;
@@ -25,8 +26,9 @@ namespace TabExtention
 
         internal static IEnumerator Init()
         {
-            while (APIBase.QuickMenu.FindObject("CanvasGroup/Container/Window/QMParent") == null)
+            for (; APIBase.QuickMenu.FindObject("CanvasGroup/Container/Window/QMParent") == null;)
                 yield return null;
+
             try
             {
                 quickMenu = APIBase.QuickMenu.transform;
@@ -42,11 +44,11 @@ namespace TabExtention
                     QMPatch.OnQuickMenuOpen += HorizontalLayoutGroupAdjuster.OnEnable;
                     QMPatch.OnQuickMenuClose += HorizontalLayoutGroupAdjuster.OnDisable;
                 }
-                catch (Exception e) { Console.WriteLine("Failed to add QM Listener Init", e); }
+                catch (Exception e) { Logs.WriteOutLine("Failed to add QM Listener Init\n" + e); }
 
             }
-            catch (Exception e) { Console.WriteLine($"Error At Tab Extender..", e); }
-            Console.WriteLine("Loading TabExtender...");
+            catch (Exception e) { Logs.WriteOutLine($"Error At Tab Extender...\n" + e); }
+            Logs.WriteOutLine("Loading TabExtender...");
 
             var newBG = GameObject.Instantiate(pageButtonsQM.FindObject("HorizontalLayoutGroup/Page_Here/Background"), pageButtonsQM);
             newBG.SetAsFirstSibling();

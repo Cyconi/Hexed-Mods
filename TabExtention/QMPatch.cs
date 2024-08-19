@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HexedTools.HookUtils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,12 @@ namespace TabExtention
 
         public static void LoadPatch()
         {
-            PatchHandler.Detour(typeof(VRC.UI.Elements.QuickMenu).GetMethod(nameof(VRC.UI.Elements.QuickMenu.OnEnable)), OnQMOpen);
-            PatchHandler.Detour(typeof(VRC.UI.Elements.QuickMenu).GetMethod(nameof(VRC.UI.Elements.QuickMenu.OnDisable)), OnQMClosed);
+            try
+            {
+                PatchHandler.Detour(typeof(VRC.UI.Elements.QuickMenu).GetMethod(nameof(VRC.UI.Elements.QuickMenu.OnEnable)), OnQMOpen);
+                PatchHandler.Detour(typeof(VRC.UI.Elements.QuickMenu).GetMethod(nameof(VRC.UI.Elements.QuickMenu.OnDisable)), OnQMClosed);
+            }
+            catch { Logs.WriteOutLine("Failed to patch QM"); }
         }
         private static void OnQMOpen()
         {

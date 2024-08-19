@@ -10,6 +10,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\Dummy\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="ConsoleTool">
+      <HintPath>..\Runtime\ConsoleTool.dll</HintPath>
+    </Reference>
     <Reference Include="CoreRuntime">
       <HintPath>..\Runtime\CoreRuntime.dll</HintPath>
     </Reference>
