@@ -19,8 +19,8 @@ namespace TabExtention
 
         internal static void Dependenices()
         {
-            var filePath = Path.Combine(Entry.CurrentDirectory.FullName, "Runtime", "NotHarmony.dll");
-            if (!File.Exists(filePath))
+            string filePath;
+            if (!File.Exists(filePath = Path.Combine(Entry.CurrentDirectory.FullName, "Runtime", "NotHarmony.dll")))
             {
                 Console.WriteLine("Downloading NotHarmony...");
                 File.WriteAllBytes(filePath, net.DownloadData("https://github.com/Cyconi/EXO-Resources/raw/main/NotHarmony.dll"));
@@ -31,6 +31,12 @@ namespace TabExtention
                 Console.WriteLine("Downloading WorldAPI...");
                 File.WriteAllBytes(filePath, net.DownloadData("https://github.com/Cyconi/EXO-Resources/raw/main/WorldAPI.dll"));
                 Console.WriteLine("WorldAPI Downloaded!");
+            }
+            if (!File.Exists(filePath = Path.Combine(Entry.CurrentDirectory.FullName, "Runtime", "ConsoleTool.dll")))
+            {
+                Console.WriteLine("[Hexed Logs] Downloading ConsoleTool...");
+                File.WriteAllBytes(filePath, net.DownloadData("https://github.com/Cyconi/EXO-Resources/raw/main/ConsoleTool.dll"));
+                Console.WriteLine("[Hexed Logs] ConsoleTool Downloaded!");
             }
         }
 
