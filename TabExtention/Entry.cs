@@ -1,5 +1,6 @@
 ﻿using CoreRuntime.Interfaces;
 using CoreRuntime.Manager;
+using HexedTools.HookUtils;
 using System.Collections;
 using UnityEngine;
 using VRC;
@@ -21,8 +22,8 @@ namespace TabExtention
             CoroutineManager.RunCoroutine(WaitForMenu());
         }
         static IEnumerator WaitForMenu()
-        {
-            for (; GameObject.Find("Canvas_QuickMenu(Clone)") == null;)
+        {           
+            for (; VRCUiManager.field_Private_Static_VRCUiManager_0?.transform?.Find("Canvas_QuickMenu(Clone)")?.gameObject == null;)
                 yield return new WaitForFixedUpdate();
 
             TabExtender.OnMenuBuilt();

@@ -40,17 +40,6 @@ namespace TabExtention
                 Logs.WriteOutLine("ConsoleTool Downloaded!");
             }
         }
-
-        internal static void WaitForObj(string obj, Action action) => CoroutineManager.RunCoroutine(WaitForObjFunc(obj, action));
-        private static IEnumerator WaitForObjFunc(string obj, Action action)
-        {
-            for (; GameObject.Find(obj) == null;)
-                yield return new WaitForFixedUpdate();
-
-            yield return new WaitForFixedUpdate();
-            action.Invoke();
-            yield break;
-        }
         internal static Sprite GeVRCSprite(string name)
         {
             Sprite _sprite = null;
@@ -67,10 +56,9 @@ namespace TabExtention
             else throw new NullReferenceException("Unable to find the Page_Tab_Backdrop sprite.");
             return _sprite;
         }
-        static (string, Transform) _lastFind = ("", null);       
+        static (string, Transform) _lastFind = ("", null);
         internal static T FindObject<T>(this Transform obje, string path) where T : UnityEngine.Object => obje.Find(path)?.GetComponent<T>();
         internal static T FindObject<T>(this GameObject obje, string path) where T : UnityEngine.Object => obje.transform.FindObject<T>(path);
         internal static Transform FindObject(this Transform trm, string path) => _lastFind.Item1 == path && _lastFind.Item2 ? _lastFind.Item2 : (_lastFind.Item2 = trm?.Find(path));
-        internal static Transform FindObject(this GameObject trm, string path) => trm.transform.FindObject(path);
     }
 }
