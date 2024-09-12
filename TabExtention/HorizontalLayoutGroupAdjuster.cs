@@ -44,12 +44,12 @@ namespace TabExtention
                 int x = i - (y * TabsPerRow);
 
                 if (x == 0)
-                    pivotX = -(((childs.Count - i) >= TabsPerRow ? TabsPerRow : (childs.Count - i)) * 64) + 64;
+                    pivotX = -(((childs.Count - i) >= TabsPerRow ? TabsPerRow : (childs.Count - i)) * 60) + 60;
 
                 if (childs.Count > i)
                 {
                     RectTransform rect = childs[i].transform.GetComponent<RectTransform>();
-                    rect.anchoredPosition = new(pivotX + x * 128, -(y * 128));
+                    rect.anchoredPosition = new(pivotX + x * 120, -(y * 120));
                     rect.pivot = new(0.5f, 1);
                 }
             }

@@ -44,11 +44,13 @@ namespace TabExtention
 
             try
             {
-                var newBG = GameObject.Instantiate(pageButtonsQM.FindObject("HorizontalLayoutGroup/Page_Here/Background"), pageButtonsQM);
+                var newBG = UnityEngine.Object.Instantiate(pageButtonsQM.FindObject("HorizontalLayoutGroup/Page_Here/Background"), pageButtonsQM);
                 newBG.SetAsFirstSibling();
                 var image = newBG.GetComponent<Image>();
                 image.sprite = Tools.GeVRCSprite("Page_Tab_Backdrop_hover");
-                image.color = new Color(0.0667f, 0.0667f, 0.0667f, 0.9f);
+                image.transform.localScale = new(1, 0.94f, 1);
+                image.transform.localPosition = new(0, -61, 0);
+                image.color = new Color(0.05f, 0.05f, 0.05f, 0.8f);
             }
             catch (Exception e) { Logs.WriteOutLine("\n\nError At Background...\n" + e); }
 
