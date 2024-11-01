@@ -5,18 +5,18 @@ using UnityEngine;
 
 namespace HexedLogs
 {
-    public class Entry : HexedCheat
+    public class Entry : HexedMod
     {
         internal static DirectoryInfo CurrentDirectory { get; private set; }
-        public override void OnLoad(string[] args)
+        public override void OnEntry(string[] args)
         {
-            CurrentDirectory = new FileInfo(Path).Directory.Parent;
+            CurrentDirectory = new FileInfo(FilePath).Directory.Parent;
             // Entry thats getting called by HexedLoader, this is alawys the startpoint of the cheat
             Console.WriteLine("[Hexed Logs] Hexed Logs successfully loaded!");
             Tools.Dependenices();
             // Specify our main function hooks to let the loader know about the games base functions, it takes any method that matches the original unity function struct
             MonoManager.PatchUpdate(typeof(VRCApplication).GetMethod(nameof(VRCApplication.Update))); // Update is needed to work with IEnumerators, hooking it will enable the CoroutineManager
-            MonoManager.PatchOnApplicationQuit(typeof(VRCApplicationSetup).GetMethod(nameof(VRCApplicationSetup.OnApplicationQuit))); // Optional Hook to enable the OnApplicationQuit callback
+            MonoManager.PatchOnApplicationQuit(typeof(VRCApplication).GetMethod(nameof(VRCApplication.OnDestroy))); // Optional Hook to enable the OnApplicationQuit callback
 
             // Apply our custom Hooked functions
 
@@ -26,9 +26,9 @@ namespace HexedLogs
                 Console.WriteLine("[Hexed Logs] WaitForObj QM...");
                 try
                 {
-                    LogReader log = new();
-                    log.LogInit();
-                    Menu.BuildPage();
+                    //LogReader log = new();
+                    //log.LogInit();
+                    //Menu.BuildPage();
                 }
                 catch { }
             });

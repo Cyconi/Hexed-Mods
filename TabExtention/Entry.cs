@@ -8,15 +8,15 @@ using WorldAPI;
 
 namespace TabExtention
 {
-    public class Entry : HexedCheat
+    public class Entry : HexedMod
     {
         internal static DirectoryInfo CurrentDirectory { get; private set; }
-        public override void OnLoad(string[] args)
+        public override void OnEntry(string[] args)
         {
-            CurrentDirectory = new FileInfo(Path).Directory.Parent;
+            CurrentDirectory = new FileInfo(FilePath).Directory.Parent;
             Tools.Dependenices();
             MonoManager.PatchUpdate(typeof(VRCApplication).GetMethod(nameof(VRCApplication.Update)));
-            MonoManager.PatchOnApplicationQuit(typeof(VRCApplicationSetup).GetMethod(nameof(VRCApplicationSetup.OnApplicationQuit))); 
+            MonoManager.PatchOnApplicationQuit(typeof(VRCApplication).GetMethod(nameof(VRCApplication.OnDestroy))); 
 
             QMPatch.LoadPatch();
             CoroutineManager.RunCoroutine(WaitForMenu());
