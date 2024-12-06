@@ -19,8 +19,8 @@ namespace TabExtention
         {
             try
             {
-                PatchHandler.Detour(typeof(UIElement1PublicCaGaCaObGa_cObMoGa_VUnique).GetMethod(nameof(UIElement1PublicCaGaCaObGa_cObMoGa_VUnique.OnEnable)), OnQMOpen);
-                PatchHandler.Detour(typeof(UIElement1PublicCaGaCaObGa_cObMoGa_VUnique).GetMethod(nameof(UIElement1PublicCaGaCaObGa_cObMoGa_VUnique.OnDisable)), OnQMClosed);
+                PatchHandler.Detour(typeof(VRC.UI.Elements.QuickMenu).GetMethod(nameof(VRC.UI.Elements.QuickMenu.OnEnable)), OnQMOpen);
+                PatchHandler.Detour(typeof(VRC.UI.Elements.QuickMenu).GetMethod(nameof(VRC.UI.Elements.QuickMenu.OnDisable)), OnQMClosed);
             }
             catch { Logs.WriteOutLine("Failed to patch QM"); }
         }
